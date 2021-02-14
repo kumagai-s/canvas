@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  main
+    section
+      figure
+        if imageName !== undefined && imageName !== 'null'
+          svg#canvas(width="958", height="480", style="background-image: url(/images/#{imageName}); background-size: 100% 100%")
+            each pathData in pathsData
+              path(d="#{pathData.d}", stroke="#{pathData.stroke}", fill="#{pathData.fill}", stroke-width="3", stroke-linecap="round")
+        else
+          svg#canvas(width="958", height="480")
+            each pathData in pathsData
+              path(d="#{pathData.d}", stroke="#{pathData.stroke}", fill="#{pathData.fill}", stroke-width="3", stroke-linecap="round")
+      p
+        | COLOR:
+        input.color(type="color", value="#666666")
+        label
+          input(type="radio", name="drawtype", value="line" checked)
+          |  LINE
+        label
+          input(type="radio", name="drawtype", value="paint")
+          |  PAINT
+        input#clear(type="button", value="クリア")
+        input#save(type="button", value="保存")
+        input#undo(type="button", value="あんどぅ")
+        input#redo(type="button", value="りどぅ")
+        input#upload(type="file", accept=".png, .jpg, .jpeg, .gif")
+    input#roomId(type="hidden", value= roomId)
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+    script(src="/socket.io/socket.io.js")
+    script(src="/javascripts/script.js")
