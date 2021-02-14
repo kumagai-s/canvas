@@ -22,7 +22,7 @@ router.get('/:roomId', async function(req, res, next) {
     var where = { roomId: roomId };
     const roomData = await db.collection("rooms").findOne(where);
     if (roomData != null) {
-      var pathsData = 'pathsData' in roomData ? roomData["pathsData"] : undefined;
+      var pathsData = 'pathsData' in roomData ? roomData["pathsData"] : [];
       var imageName = 'imageName' in roomData ? roomData["imageName"] : undefined;
       // console.log(imageName);
       res.render('rooms', { title: 'Canvas', roomId: roomId, pathsData: pathsData, imageName: imageName });
